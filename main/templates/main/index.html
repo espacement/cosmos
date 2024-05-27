@@ -1,0 +1,75 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="banner">
+        <p class="banner-title">COSMO GROUND</p>
+        <p class="banner-text">САМЫЕ НИЗКИЕ ЦЕНЫ НА ЗЕМЕЛЬНЫЕ УЧАСТКИ НА МАРСЕ</p>
+    </div>
+    <div class="item">
+        <img class="item-img" src="{% static "assets/object1.svg" %}" alt="object">
+        <div class="item-details">
+            <div class="item-name">Стандартный участок в 1 акр</div>
+            <div class="item-price">₽6000</div>                    <div class="item-desc">При покупке на указанную почту придет электронный сертификат</div>
+            <button class="item-button" onclick="addToCart('Стандартный участок в 1 акр', 6000)">В КОРЗИНУ</button>
+        </div>
+    </div>
+    <div class="strip"></div>
+    <div class="item">
+        <img class="item-img" src="{% static "assets/object1.svg" %}" alt="object">
+        <div class="item-details">
+            <div class="item-name">Стандартный участок в 10 акров</div>
+            <div class="item-price">₽60000</div>
+            <div class="item-desc">При покупке на указанную почту придет электронный сертификат</div>
+            <button class="item-button" onclick="addToCart('Стандартный участок в 10 акров', 60000)">В КОРЗИНУ</button>
+        </div>
+    </div>
+    <div class="owners-section">
+        <h2 class="owners-title">У кого уже есть участки на Марсе</h2>
+        <div class="owners-gallery">
+            <div class="owner-item">
+                <img src="{% static "assets/karaganda.jpg" %}" alt="Owner 1" class="owner-img">
+            </div>
+            <div class="owner-item">
+                <img src="{% static "assets/photo1.jpg" %}" alt="Owner 2" class="owner-img">
+            </div>
+            <div class="owner-item">
+                <img src="{% static "assets/photo2.jpg" %}" alt="Owner 3" class="owner-img">
+            </div>
+            <div class="owner-item">
+                <img src="{% static "assets/photo3.jpg" %}" alt="Owner 4" class="owner-img">
+            </div>
+        </div>
+    </div>
+    <h2 class="owners-title">Интересное</h2>
+    <div class="news-slider-container">
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <div class="news-slider">
+            <div class="slide" onclick="location.href='public.html';">
+                <img src="{% static "assets/1pub.webp" %}" alt="News 1" class="news-image">
+                <div class="slide-content">
+                    <h3>Эксперт космической отрасли: совершенно нормально уже говорить о Марсе</h3>
+                    <p>Российские и китайские ученые обсуждают возможность совместного изучения Марса, заявил научный руководитель Института космических исследований РАН Лев Зеленый</p>
+                </div>
+            </div>
+            <div class="slide" onclick="location.href='public.html';">
+                <img src="{% static "assets/photo2.jpg" %}" alt="News 2" class="news-image">
+                <div class="slide-content">
+                    <h3>Новость 2: Успешный запуск нового проекта</h3>
+                    <p>Описание новости 2. Мы рады объявить об успешном запуске нашего нового проекта.</p>
+                </div>
+            </div>
+            <div class="slide" onclick="location.href='public.html';">
+                <img src="{% static "assets/photo3.jpg" %}" alt="News 3" class="news-image">
+                <div class="slide-content">
+                    <h3>Новость 3: Новые скидки на земельные участки</h3>
+                    <p>Описание новости 3. Не упустите шанс приобрести участок со скидкой!</p>
+                </div>
+            </div>
+        </div>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+    
+</div>
+{% endblock  %}

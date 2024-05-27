@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static "assets/favicon.png" %}" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static "script.js" %}" defer></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <!-- Аппер -->
+    <header>
+        <div class="upper_container">
+            <div class="upper__content">
+                <a class="infohead" href="{% url "faq" %}">FAQ</a>
+                <a class="infohead" href="mailto:CosmoGround@gmail.com">CosmoGround@gmail.com</a>
+            </div>
+        </div>
+        <!-- Хеадер -->
+        <div class="header__content">
+            <div class="header__container">
+                <a href="{% url "index" %}"><img class="nav" src="{% static "assets/logo.svg" %}" alt="logo"></a>
+                <a class="nav" href="public.html">ИНТЕРЕСНОЕ</a>
+                <a class="nav" href="photos.html">ГАЛЕРЕЯ</a>
+                <a class="nav" href="log.html">ВОЙТИ</a>
+                <a class="nav" id="open-cart" href="#">КОРЗИНА <span id="cart-count" class="cart-count">0</span></a>
+            </div>
+        </div>
+    </header>
+    <!-- Мейн -->
+    <main>
+        {% block content %}{% endblock  %}
+    </main>
+    <!-- ФУТЕР -->
+    <footer>
+        <p>Свяжитесь с нами</p>
+        <div class="social-icons">
+            <a href="https://t.me/yourlink" target="_blank"><i class="fa fa-telegram tg-ico" style="font-size: 1.6rem;"></i></a>
+            <a href="https://vk.com/yourlink" target="_blank"><i class="fa fa-vk vk-ico" style="font-size: 1.6rem;"></i></a>
+        </div>
+        <a href="tel:880055с53535" class="infohead">88005553535</a>
+        <p>©CosmoGround 2024</p>
+    </footer>
+
+    <!-- Корзина -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Корзина</h2>
+            <div class="cart-details">
+                <div class="cart-items-container">
+                    <ul id="cart-items" class="cart-items"></ul>
+                    <div class="total-amount">
+                        <h3>Общая сумма: <span id="total-amount">₽0</span></h3>
+                    </div>
+                </div>
+                
+                <div class="order-form-container">
+                    <form id="order-form">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                        <label for="lastname">Фамилия:</label>
+                        <input type="text" id="lastname" name="lastname" required>
+                        <label for="firstname">Имя:</label>
+                        <input type="text" id="firstname" name="firstname" required>
+                        <label for="middlename">Отчество:</label>
+                        <input type="text" id="middlename" name="middlename" required>
+                        <button type="submit">Оформить заказ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
