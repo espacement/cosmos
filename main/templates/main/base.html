@@ -16,16 +16,16 @@
     <header>
         <div class="upper_container">
             <div class="upper__content">
-                <a class="infohead" href="{% url "faq" %}">FAQ</a>
+                <a class="infohead" href="{% url "main:faq" %}">FAQ</a>
                 <a class="infohead" href="mailto:CosmoGround@gmail.com">CosmoGround@gmail.com</a>
             </div>
         </div>
         <!-- Хеадер -->
         <div class="header__content">
             <div class="header__container">
-                <a href="{% url "index" %}"><img class="nav" src="{% static "assets/logo.svg" %}" alt="logo"></a>
-                <a class="nav" href="public.html">ИНТЕРЕСНОЕ</a>
-                <a class="nav" href="photos.html">ГАЛЕРЕЯ</a>
+                <a href="{% url "main:index" %}"><img class="nav" src="{% static "assets/logo.svg" %}" alt="logo"></a>
+                <a class="nav" href="{% url "additions:public" %}">ИНТЕРЕСНОЕ</a>
+                <a class="nav" href="{% url "additions:gallery" %}">ГАЛЕРЕЯ</a>
                 <a class="nav" href="log.html">ВОЙТИ</a>
                 <a class="nav" id="open-cart" href="#">КОРЗИНА <span id="cart-count" class="cart-count">0</span></a>
             </div>
