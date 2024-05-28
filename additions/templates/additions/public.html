@@ -5,7 +5,7 @@
     <div class="content">
         {% for new in news %}    
             <div class="item">
-                <img class="item-img" src="{% static new.image_news  %}" alt="object">
+                <img class="item-img" src="{{ new.image_news.url }}" alt="object">
                 <div class="item-details">
                     <div class="item-name">{{ new.title_news }}</div>
                     <div class="item-desc">{{ new.text_news }}</div>

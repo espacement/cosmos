@@ -26,7 +26,11 @@
                 <a href="{% url "main:index" %}"><img class="nav" src="{% static "assets/logo.svg" %}" alt="logo"></a>
                 <a class="nav" href="{% url "additions:public" %}">ИНТЕРЕСНОЕ</a>
                 <a class="nav" href="{% url "additions:gallery" %}">ГАЛЕРЕЯ</a>
+                {% if is_auth %}
+                <a class="nav" href="log.html">ВЛАДЕНИЯ</a>
+                {% else %}
                 <a class="nav" href="log.html">ВОЙТИ</a>
+                {% endif %}
                 <a class="nav" id="open-cart" href="#">КОРЗИНА <span id="cart-count" class="cart-count">0</span></a>
             </div>
         </div>

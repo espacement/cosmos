@@ -7,24 +7,18 @@
         <p class="banner-title">COSMO GROUND</p>
         <p class="banner-text">САМЫЕ НИЗКИЕ ЦЕНЫ НА ЗЕМЕЛЬНЫЕ УЧАСТКИ НА МАРСЕ</p>
     </div>
-    <div class="item">
-        <img class="item-img" src="{% static "assets/object1.svg" %}" alt="object">
-        <div class="item-details">
-            <div class="item-name">Стандартный участок в 1 акр</div>
-            <div class="item-price">₽6000</div>                    <div class="item-desc">При покупке на указанную почту придет электронный сертификат</div>
-            <button class="item-button" onclick="addToCart('Стандартный участок в 1 акр', 6000)">В КОРЗИНУ</button>
+    {% for item in plots %}
+        <div class="item">
+            <img class="item-img" src="{{ item.image.url }}" alt="object">
+            <div class="item-details">
+                <div class="item-name">{{item.size}}</div>
+                <div class="item-price">₽{{item.price}}</div>                    
+                <div class="item-desc">При покупке в профиле будет доступен сертификат</div>
+                <button class="item-button" onclick="addToCart('{{item.size}}', {{item.price}})">В КОРЗИНУ</button>
+            </div>
         </div>
-    </div>
-    <div class="strip"></div>
-    <div class="item">
-        <img class="item-img" src="{% static "assets/object1.svg" %}" alt="object">
-        <div class="item-details">
-            <div class="item-name">Стандартный участок в 10 акров</div>
-            <div class="item-price">₽60000</div>
-            <div class="item-desc">При покупке на указанную почту придет электронный сертификат</div>
-            <button class="item-button" onclick="addToCart('Стандартный участок в 10 акров', 60000)">В КОРЗИНУ</button>
-        </div>
-    </div>
+        <div class="strip"></div>
+    {% endfor %}
     <div class="owners-section">
         <h2 class="owners-title">У кого уже есть участки на Марсе</h2>
         <div class="owners-gallery">
@@ -70,6 +64,5 @@
         </div>
         <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
-    
 </div>
 {% endblock  %}

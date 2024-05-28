@@ -5,5 +5,5 @@ app_name = 'additions'
 
 urlpatterns = [
     path('public/', views.public, name='public'),
-    path('gallery/', views.gallery, name='gallery'),
+    path('gallery/', views.galler, name='gallery'),
 ]
