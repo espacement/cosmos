@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -9,7 +9,9 @@
     </div>
     {% for item in plots %}
         <div class="item">
+            {% if  item.image%}
             <img class="item-img" src="{{ item.image.url }}" alt="object">
+            {% endif %}
             <div class="item-details">
                 <div class="item-name">{{item.size}}</div>
                 <div class="item-price">₽{{item.price}}</div>                    
