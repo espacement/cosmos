@@ -76,3 +76,8 @@ button:hover {
     background-color: #b33b0d;
 }
 
+.form-column {
+    display: inline-block;
+    width: 48%;
+    padding: 10px;
+}

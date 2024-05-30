@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<script src="{% static "log.js" %}" defer></script>
+<link rel="stylesheet" href="{% static "formstyle.css" %}">
+{% endblock  %}
+{% block content %}
+<div class="auth-container"> 
+    {% comment %} <div class="tabs">
+        <button class="tab-link" onclick="window.location.href='{% url "users:log" %}'">Вход</button>
+    </div> {% endcomment %}
+    <div id="register" class="tab-content active">
+        <h2>Регистрация</h2>
+        <form action="{% url 'users:register' %}" method="post" id="register-form">
+            {% csrf_token %}
+            {{ regform }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}   

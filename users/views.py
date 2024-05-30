@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from users.forms import UserLoginForm
+from users.forms import UserLoginForm, UserRegisterForm
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib import messages
 
 # Create your views here.
 def profile(request):
-    # plot = plots.objects.all()
     context = {
         'title': 'Профиль',
         'plots': "ыввфы",
@@ -30,6 +30,31 @@ def autho(request):
         'form': form,
     }
     return render(request, 'users/log.html', context)
+
+def register(request):
+    if request.method == 'POST':
+        regform = UserRegisterForm(data=request.POST)
+        if regform.is_valid():
+            regform.save()
+
+            session_key = request.session.session_key
+
+            user = regform.instance
+            auth.login(request, user)
+
+            if session_key:
+                # Cart.objects.filter(session_key=session_key).update(user=user)
+                messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
+            return HttpResponseRedirect(reverse('main:index'))
+    else:
+        regform = UserRegisterForm()
+    
+    context = {
+        'title': 'Регистрация',
+        'regform': regform,
+    }
+    return render(request, 'users/register.html', context)
+
 
 def logout(request):
     # plot = plots.objects.all()
