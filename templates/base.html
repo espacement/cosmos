@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static "assets/favicon.png" %}" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" href="{% static "style.css" %}">
+    {% block head %}{% endblock  %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{% static "script.js" %}" defer></script>
     <title>{{ title }}</title>
@@ -27,11 +28,11 @@
                 <a class="nav" href="{% url "additions:public" %}">ИНТЕРЕСНОЕ</a>
                 <a class="nav" href="{% url "additions:gallery" %}">ГАЛЕРЕЯ</a>
                 {% if is_auth %}
-                <a class="nav" href="log.html">ВЛАДЕНИЯ</a>
+                <a class="nav" href="{% url "users:profile" %}">ВЛАДЕНИЯ</a>
                 {% else %}
-                <a class="nav" href="log.html">ВОЙТИ</a>
+                <a class="nav" href= "{% url "users:autho" %}">ВОЙТИ</a>
                 {% endif %}
-                <a class="nav" id="open-cart" href="#">КОРЗИНА <span id="cart-count" class="cart-count">0</span></a>
+                <a class="nav" id="open-cart">КОРЗИНА <span id="cart-count" class="cart-count">0</span></a>
             </div>
         </div>
     </header>
@@ -65,16 +66,18 @@
                 
                 <div class="order-form-container">
                     <form id="order-form">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                        <label for="phone">Телефон:</label>
-                        <input type="tel" id="phone" name="phone" required>
-                        <label for="lastname">Фамилия:</label>
-                        <input type="text" id="lastname" name="lastname" required>
-                        <label for="firstname">Имя:</label>
-                        <input type="text" id="firstname" name="firstname" required>
-                        <label for="middlename">Отчество:</label>
-                        <input type="text" id="middlename" name="middlename" required>
+                        <label for="cardholder">Имя держателя карты:</label>
+                        <input type="text" id="cardholder" name="cardholder" required>
+    
+                        <label for="cardnumber">Номер карты:</label>
+                        <input type="text" id="cardnumber" name="cardnumber" required pattern="\d{16}" title="Номер карты должен состоять из 16 цифр">
+                        
+                        <label for="expiry">Срок действия (MM/YY):</label>
+                        <input type="text" id="expiry" name="expiry" required pattern="\d{2}/\d{2}" title="Введите срок действия в формате MM/YY">
+                        
+                        <label for="cvc">CVC код:</label>
+                        <input type="text" id="cvc" name="cvc" required pattern="\d{3}" title="CVC код должен состоять из 3 цифр">
+                        
                         <button type="submit">Оформить заказ</button>
                     </form>
                 </div>

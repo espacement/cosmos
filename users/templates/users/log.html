@@ -1,31 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
+{% block head %}
+<script src="{% static "log.js" %}" defer></script>
+<link rel="stylesheet" href="{% static "formstyle.css" %}">
+{% endblock  %}
 {% block content %}
-<script src="log.js" defer></script>
-        <div class="auth-container">
+        <div class="auth-container"> 
             <div class="tabs">
                 <button class="tab-link active" onclick="openTab(event, 'login')">Вход</button>
                 <button class="tab-link" onclick="openTab(event, 'register')">Регистрация</button>
             </div>
             <div id="login" class="tab-content active">
                 <h2>Вход</h2>
-                <form id="login-form">
-                    <label for="login-email">Email:</label>
-                    <input type="email" id="login-email" name="email" required>
-                    <label for="login-password">Пароль:</label>
-                    <input type="password" id="login-password" name="password" required>
-                    <button type="submit">Войти</button>
+                <form action = {% url "users:autho" %} method = "post"  id="login-form">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <p>{{ form.non_field_errors }}</p>
+                    {% endif %}
+
+                    {% for item in form %}
+                        <label for = "{{ item.id_for_label }}">{{item.label}}</label>
+                        {{item}}
+                    {% endfor %}
+                    <button type="submit">Войти</button> 
                 </form>
             </div>
             <div id="register" class="tab-content">
                 <h2>Регистрация</h2>
                 <form id="register-form">
+                    <label for="register-login">Логин:</label>
+                    <input type="text" id="register-login" name="login" placeholder="Ваш логин" required>
                     <label for="register-email">Email:</label>
-                    <input type="email" id="register-email" name="email" required>
+                    <input type="email" id="register-email" name="email" placeholder="Ваш email" required>
+                    <label for="register-firstname">Имя:</label>
+                    <input type="text" id="register-firstname" name="firstname" placeholder="Ваше имя" required>
+                    <label for="register-lastname">Фамилия:</label>
+                    <input type="text" id="register-lastname" name="lastname" placeholder="Ваша фамилия" required>
                     <label for="register-password">Пароль:</label>
-                    <input type="password" id="register-password" name="password" required>
+                    <input type="password" id="register-password" name="password" placeholder="Введите пароль" required>
                     <label for="register-confirm-password">Подтвердите пароль:</label>
-                    <input type="password" id="register-confirm-password" name="confirm-password" required>
+                    <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Повторите пароль" required>
                     <button type="submit">Зарегистрироваться</button>
                 </form>
             </div>

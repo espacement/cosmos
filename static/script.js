@@ -2,28 +2,6 @@ const button = document.querySelector('.dropdown');
 const dropdown = document.querySelector('.dropdown-content');
 const cartItems = document.querySelector('.cart-items');
 
-
-// window.addEventListener('scroll', function() {
-//     var upper = document.querySelector('.upper_container');
-//     var header = document.querySelector('header');
-
-//     if(window.scrollY > 0) {
-//         upper.style.top = '-45px';
-//         header.style.top = '0';
-//     } else {
-//         upper.style.top = '0';
-//         header.style.top = '45px';
-//     }
-// });
-
-// button.addEventListener('mouseover', function() {
-//     dropdown.classList.add('show');
-// });
-
-// button.addEventListener('mouseout', function() {
-//     dropdown.classList.remove('show');
-// });
-
 // Корзина
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -139,68 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Слайдер
-    let currentSlideIndex = 0;
-
-    window.nextSlide = function () {
-        const slides = document.querySelectorAll('.slide');
-        slides[currentSlideIndex].style.display = 'none';
-        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-        slides[currentSlideIndex].style.display = 'flex';
-    };
-
-    window.prevSlide = function () {
-        const slides = document.querySelectorAll('.slide');
-        slides[currentSlideIndex].style.display = 'none';
-        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
-        slides[currentSlideIndex].style.display = 'flex';
-    };
-
-    // Инициализация первого слайда
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((slide, index) => {
-        if (index !== currentSlideIndex) {
-            slide.style.display = 'none';
-        } else {
-            slide.style.display = 'flex';
-        }
-    });
-
-    const slideInterval = setInterval(nextSlide, 5000);
-
-    // Добавить обработчики событий для стрелок
-    document.querySelector('.prev').addEventListener('click', () => {
-        prevSlide();
-        clearInterval(slideInterval);
-        setTimeout(() => {
-            startSlideShow();
-        }, 5000);
-    });
-
-    document.querySelector('.next').addEventListener('click', () => {
-        nextSlide();
-        clearInterval(slideInterval);
-        setTimeout(() => {
-            startSlideShow();
-        }, 5000);
-    });
-
-    function startSlideShow() {
-        slideInterval = setInterval(nextSlide, 5000);
-    }
-
-    // Остановить слайдшоу при наведении мыши
-    document.querySelector('.slider').addEventListener('mouseover', () => {
-        clearInterval(slideInterval);
-    });
-
-    // Запустить слайдшоу при уходе мыши
-    document.querySelector('.slider').addEventListener('mouseout', () => {
-        startSlideShow();
-    });
-
-    // Запустить автоматическую прокрутку при загрузке страницы
-    startSlideShow();
+    
 });
 
 // ГАЛЕРЕЯ

@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from users.forms import UserLoginForm
+from django.contrib import auth
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 def profile(request):
@@ -9,11 +13,21 @@ def profile(request):
     }
     return render(request, 'users/profile.html', context)
 
-def auth(request):
-    # plot = plots.objects.all()
+def autho(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                return HttpResponseRedirect(reverse('main:index'))
+    else:
+        form = UserLoginForm()
     context = {
         'title': 'Авторизация',
-        'plots': "ыввфы",
+        'form': form,
     }
     return render(request, 'users/log.html', context)
 
