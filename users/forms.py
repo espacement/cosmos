@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from users.models import User
+from users.models import CustomUser
+
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -14,7 +15,7 @@ class UserLoginForm(AuthenticationForm):
                                       'placeholder': 'Введите пароль',
                                       }),)
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'password']
 
 
@@ -35,7 +36,7 @@ class UserRegisterForm(UserCreationForm):
     
     email = forms.CharField(
         label='Email',
-        widget=forms.EmailInput(attrs={ 'placeholder': 'Введите email *youremail@example.com', }),)
+        widget=forms.EmailInput(attrs={ 'placeholder': 'youremail@example.com', }),)
     
     password1 = forms.CharField(
         label='Пароль',
@@ -45,7 +46,7 @@ class UserRegisterForm(UserCreationForm):
         label='Подтвердите пароль',
         widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль',}),)
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['first_name', 
                   'last_name',
                   'username',

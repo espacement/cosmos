@@ -803,3 +803,27 @@ footer a {
     color: var(--a-color);
     background-color: var(--main-color);
 }
+
+.logout-button {
+    border: 2px solid var(--a-color);
+    background-color: var(--a-color);
+    color: var(--main-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logout-button:hover {
+    transform: scale(1.05);
+    background-color: #a33608;
+}
+
+.logout-button:active {
+    color: var(--a-color);
+    background-color: var(--main-color);
+}

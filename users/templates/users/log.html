@@ -6,9 +6,6 @@
 {% endblock  %}
 {% block content %}
 <div class="auth-container"> 
-    {% comment %} <div class="tabs">
-        {% comment %} <button class="tab-link" onclick="window.location.href='{% url "users:register" %}'">Регистрация</button>
-    </div> {% endcomment %}
     <div id="login" class="tab-content active">
         <h2>Вход</h2>
         <form action="{% url 'users:autho' %}" method="post" id="login-form">
@@ -24,6 +21,10 @@
             {% endfor %}
             <button type="submit">Войти</button> 
         </form>
+        <p class="owners-title"></p>
+        <div class="tabs">
+            <a class="nav" href={% url "users:register" %}>Еще нет аккаунта?<a>
+        </div> 
     </div>
 </div>
 {% endblock content %}   

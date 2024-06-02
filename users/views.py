@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from users.forms import UserLoginForm, UserRegisterForm
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def profile(request):
@@ -33,33 +34,33 @@ def autho(request):
 
 def register(request):
     if request.method == 'POST':
-        regform = UserRegisterForm(data=request.POST)
-        if regform.is_valid():
-            regform.save()
+        form = UserRegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
 
             session_key = request.session.session_key
 
-            user = regform.instance
+            user = form.instance
             auth.login(request, user)
 
             if session_key:
                 # Cart.objects.filter(session_key=session_key).update(user=user)
                 messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
             return HttpResponseRedirect(reverse('main:index'))
+        else:
+            print(form.errors)
     else:
-        regform = UserRegisterForm()
+        form = UserRegisterForm()
     
     context = {
         'title': 'Регистрация',
-        'regform': regform,
+        'form': form,
     }
     return render(request, 'users/register.html', context)
 
 
+# @login_required
 def logout(request):
-    # plot = plots.objects.all()
-    context = {
-        'title': 'Выход',
-        'plots': "ыввфы",
-    }
-    return render(request, 'users/profile.html', context)
+    messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
+    auth.logout(request)
+    return redirect('main:index')
