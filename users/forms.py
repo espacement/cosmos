@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from users.models import CustomUser
+from users.models import User
 
 
 class UserLoginForm(AuthenticationForm):
@@ -15,7 +15,7 @@ class UserLoginForm(AuthenticationForm):
                                       'placeholder': 'Введите пароль',
                                       }),)
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['username', 'password']
 
 
@@ -46,7 +46,7 @@ class UserRegisterForm(UserCreationForm):
         label='Подтвердите пароль',
         widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль',}),)
     class Meta:
-        model = CustomUser
+        model = User
         fields = ['first_name', 
                   'last_name',
                   'username',
