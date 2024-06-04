@@ -3,8 +3,8 @@
 {% block content %}
     <div class="profile-container">
         <h1>Профиль пользователя</h1>
-        <p class="user-email">Логин:<span class="user-email">espacement</span></p>
-        <p class="user-email">Email:<span class="user-email">example@example.com</span></p>
+        <p class="user-email">Логин:<span class="user-email"> {{ username }}</span></p>
+        <p class="user-email">Email:<span class="user-email"> {{ email }}</span></p>
         <p class="owners-title"></p>
         <a class="logout-button" href = {% url 'users:logout' %}>Выйти из аккаунта</a>
         <div class="purchased-plots">

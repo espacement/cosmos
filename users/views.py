@@ -6,11 +6,15 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
+
 # Create your views here.
+@login_required
 def profile(request):
     context = {
         'title': 'Профиль',
-        'plots': "ыввфы",
+        'username': request.user.username,
+        'email': request.user.email,
     }
     return render(request, 'users/profile.html', context)
 
