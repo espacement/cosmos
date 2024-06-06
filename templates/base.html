@@ -7,9 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static "assets/favicon.png" %}" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" href="{% static "style.css" %}">
-    {% block head %}{% endblock  %}
+    {% block head %}{% endblock %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{% static "script.js" %}" defer></script>
+
+    <script>
+        window.addToCartUrl = "{% url 'main:add_to_cart' %}";
+    </script>
+
     <title>{{ title }}</title>
 </head>
 <body>
@@ -38,7 +43,7 @@
     </header>
     <!-- Мейн -->
     <main>
-        {% block content %}{% endblock  %}
+        {% block content %}{% endblock %}
     </main>
     <!-- ФУТЕР -->
     <footer>
@@ -58,12 +63,21 @@
             <h2>Корзина</h2>
             <div class="cart-details">
                 <div class="cart-items-container">
-                    <ul id="cart-items" class="cart-items"></ul>
+                    <ul id="cart-items" class="cart-items">
+                        {% for item in cart_items %}
+                            <li>
+                                {{ item.product.size }} - {{ item.product.price }} ₽ x {{ item.quantity }}
+                                {% comment %} <form action="{% url 'main:remove_from_cart' item.product.id|stringformat:"d" %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit">Удалить</button>
+                                </form> {% endcomment %}
+                            </li>
+                        {% endfor %}
+                    </ul>
                     <div class="total-amount">
-                        <h3>Общая сумма: <span id="total-amount">₽0</span></h3>
+                        <h3>Общая сумма: ₽{{ total_amount }}</h3>
                     </div>
                 </div>
-                
                 <div class="order-form-container">
                     <form id="order-form">
                         <label for="cardholder">Имя держателя карты:</label>
@@ -71,18 +85,20 @@
     
                         <label for="cardnumber">Номер карты:</label>
                         <input type="text" id="cardnumber" name="cardnumber" required pattern="\d{16}" title="Номер карты должен состоять из 16 цифр">
-                        
+    
                         <label for="expiry">Срок действия (MM/YY):</label>
                         <input type="text" id="expiry" name="expiry" required pattern="\d{2}/\d{2}" title="Введите срок действия в формате MM/YY">
-                        
+    
                         <label for="cvc">CVC код:</label>
                         <input type="text" id="cvc" name="cvc" required pattern="\d{3}" title="CVC код должен состоять из 3 цифр">
-                        
+    
                         <button type="submit">Оформить заказ</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
+    
 </body>
 </html>

@@ -1,20 +1,14 @@
-const button = document.querySelector('.dropdown');
-const dropdown = document.querySelector('.dropdown-content');
-const cartItems = document.querySelector('.cart-items');
+
+// const cartItems = document.querySelector('.cart-items');
 
 // Корзина
 
-document.addEventListener("DOMContentLoaded", function () {
-    const cart = [];
+document.addEventListener("DOMContentLoaded", function() {
     const cartModal = document.getElementById('cart-modal');
-    const cartItemsList = document.getElementById("cart-items");
-    const orderForm = document.getElementById("order-form");
     const cartCount = document.getElementById("cart-count");
-    const totalAmountElement = document.getElementById("total-amount");
 
     document.getElementById('open-cart').addEventListener('click', () => {
         cartModal.style.display = "flex";
-        renderCartItems();
     });
 
     document.querySelector(".close-button").addEventListener("click", () => {
@@ -27,78 +21,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    window.addToCart = function (itemName, itemPrice, itemId) {
-        const existingItem = cart.find(item => item.name === itemName);
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ name: itemName, price: itemPrice, quantity: 1 });
-        }
-        
-        renderCartItems();
-        updateCartCount();
-    };
+    window.addToCart = function(itemId) {
+        // const addToCartUrl = document.currentScript.getAttribute('data-add-to-cart-url');
 
-    function renderCartItems() {
-        cartItemsList.innerHTML = "";
-        let totalAmount = 0;
-        cart.forEach((item, index) => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                ${item.name} - ₽${item.price} x ${item.quantity}
-                <button onclick="updateQuantity(${index}, 'increase')">+</button>
-                <button onclick="updateQuantity(${index}, 'decrease')">-</button>
+        const csrfTokenInput = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (csrfTokenInput) {
+            const csrfToken = csrfTokenInput.value;
+            // Продолжаем обработку
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = window.addToCartUrl;
+            form.innerHTML = `
+                <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+                <input type="hidden" name="product_id" value="${itemId}">
+                <input type="hidden" name="quantity" value="1">
             `;
-            cartItemsList.appendChild(li);
-            totalAmount += item.price * item.quantity;
-        });
-        totalAmountElement.textContent = `₽${totalAmount}`;
-    }
-
-    window.updateQuantity = function (index, action) {
-        if (action === 'increase') {
-            cart[index].quantity += 1;
-        } else if (action === 'decrease') {
-            cart[index].quantity -= 1;
-            if (cart[index].quantity === 0) {
-                cart.splice(index, 1);
-            }
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            console.error('CSRF token input not found.');
         }
-        renderCartItems();
-        updateCartCount();
     };
+    
 
+    // Обновление количества товаров в корзине
     function updateCartCount() {
-        const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
+        const totalCount = document.querySelectorAll('.cart-item').length;
         cartCount.textContent = totalCount;
-        console.log(`Cart count updated: ${totalCount}`);
     }
+    updateCartCount();
 
-    orderForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const formData = new FormData(orderForm);
-        const email = formData.get("email");
-        const phone = formData.get("phone");
-        const lastname = formData.get("lastname");
-        const firstname = formData.get("firstname");
-        const middlename = formData.get("middlename");
-
-        console.log("Order Submitted:", {
-            email,
-            phone,
-            lastname,
-            firstname,
-            middlename,
-            cart
-        });
-
-        alert("Order submitted successfully!");
-        cartModal.style.display = "none";
-        orderForm.reset();
-        cart.length = 0;
-        renderCartItems();
-        updateCartCount();
-    });
     // Владельцы
     const ownerImages = document.querySelectorAll('.owner-img');
 

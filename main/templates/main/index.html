@@ -8,15 +8,16 @@
         <p class="banner-text">САМЫЕ НИЗКИЕ ЦЕНЫ НА ЗЕМЕЛЬНЫЕ УЧАСТКИ НА МАРСЕ</p>
     </div>
     {% for item in plots %}
+    {% csrf_token %}
         <div class="item">
-            {% if  item.image%}
-            <img class="item-img" src="{{ item.image.url }}" alt="object">
+            {% if item.image %}
+                <img class="item-img" src="{{ item.image.url }}" alt="object">
             {% endif %}
             <div class="item-details">
-                <div class="item-name">{{item.size}}</div>
-                <div class="item-price">₽{{item.price}}</div>                    
+                <div class="item-name">{{ item.size }}</div>
+                <div class="item-price">₽{{ item.price }}</div>
                 <div class="item-desc">При покупке в профиле будет доступен сертификат</div>
-                <button class="item-button" onclick="addToCart('{{item.size}}', {{item.price}})">В КОРЗИНУ</button>
+                <button onclick="addToCart('{{ item.id }}')">В КОРЗИНУ</button>
             </div>
         </div>
         <div class="strip"></div>
@@ -40,4 +41,6 @@
     </div>
     <h2 class="owners-title"></h2>
 </div>
-{% endblock  %}
+<script src="{% static 'script.js' %}" data-add-to-cart-url="{% url 'main:add_to_cart' %}"></script>
+
+{% endblock %}
