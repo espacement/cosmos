@@ -5,16 +5,18 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from main.models import Order
 
 
 # Create your views here.
 @login_required
 def profile(request):
+    orders = Order.objects.filter(user=request.user)
     context = {
         'title': 'Профиль',
         'username': request.user.username,
         'email': request.user.email,
+        'orders': orders,
     }
     return render(request, 'users/profile.html', context)
 

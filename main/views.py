@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import plots, Cart, CartItem
-from .forms import AddToCartForm
+from .models import plots, Cart, CartItem, Order, OrderItem
+from .forms import AddToCartForm, CheckoutForm
 from django.contrib import messages
 
 
@@ -51,4 +51,44 @@ def cart_detail(request):
         'username': request.user.username,
     }
     return render(request, 'main/cart_detail.html', {'cart': cart})
+
+
+@login_required
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    cart_item.delete()
+    messages.success(request, 'Товар удален из корзины!')
+    return redirect('main:cart_detail')
+
+@login_required
+def checkout(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    if not cart.cartitem_set.exists():
+        messages.error(request, 'Ваша корзина пуста')
+        return redirect('main:cart_detail')
+    
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            order = Order.objects.create(
+                user=request.user,
+                total_cost=cart.get_total_cost()
+            )
+            for item in cart.cartitem_set.all():
+                OrderItem.objects.create(
+                    order=order,
+                    plot=item.plot,
+                    quantity=item.quantity
+                )
+            cart.cartitem_set.all().delete()
+            messages.success(request, 'Покупка успешно завершена!')
+            return redirect('main:order_success')
+    else:
+        form = CheckoutForm()
+    
+    return render(request, 'main/checkout.html', {'form': form})
+
+@login_required
+def order_success(request):
+    return render(request, 'main/order_success.html')
     

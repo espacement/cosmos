@@ -8,24 +8,25 @@
         <p class="banner-text">САМЫЕ НИЗКИЕ ЦЕНЫ НА ЗЕМЕЛЬНЫЕ УЧАСТКИ НА МАРСЕ</p>
     </div>
     {% for item in plots %}
-    <div class="item">
-        {% if item.image %}
-            <img class="item-img" src="{{ item.image.url }}" alt="object">
-        {% endif %}
-        <div class="item-details">
-            <div class="item-name">{{ item.size }}</div>
-            <div class="item-price">₽{{ item.price }}</div>
-            <div class="item-desc">При покупке в профиле будет доступен сертификат</div>
-            
-            <form method="post" action="{% url 'main:add_to_cart' item.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="plot" value="{{ item.id }}">
-                <input type="hidden" name="quantity" value="1">
-                <button type="submit" class="item-button">В КОРЗИНУ</button>
-            </form>
+        <div class="item">
+            {% if item.image %}
+                <img class="item-img" src="{{ item.image.url }}" alt="object">
+            {% endif %}
+            <div class="item-details">
+                <div class="item-name">{{ item.size }}</div>
+                <div class="item-price">₽{{ item.price }}</div>
+                <div class="item-desc">При покупке в профиле будет доступен сертификат</div>
+                <div class="item-action">
+                    <form method="post" action="{% url 'main:add_to_cart' item.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="plot" value="{{ item.id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="item-button">В КОРЗИНУ</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="strip"></div>
+        <div class="strip"></div>
     {% endfor %}
     <div class="owners-section">
         <h2 class="owners-title">У кого уже есть участки на Марсе</h2>

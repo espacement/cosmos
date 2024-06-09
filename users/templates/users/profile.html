@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
-    <div class="profile-container">
-        <h1>Профиль пользователя</h1>
-        <p class="user-email">Логин:<span class="user-email"> {{ username }}</span></p>
-        <p class="user-email">Email:<span class="user-email"> {{ email }}</span></p>
-        <p class="owners-title"></p>
-        <a class="logout-button" href = {% url 'users:logout' %}>Выйти из аккаунта</a>
-        <div class="purchased-plots">
-            <h2>Купленные участки</h2>
-            <div class="item">
-                <img src="assets/plot1.jpg" alt="Участок 1 акр" class="item-img">
-                <div class="item-details">
-                    <p class="item-name">Участок в 1 акр</p>
-                    <p class="item-price">₽6000.00</p>
-                    <a href="#" class="item-button">Скачать сертификат</a>
+<div class="profile-container">
+    <h1>Профиль пользователя</h1>
+    <p class="user-email">Логин: <span class="user-email">{{ username }}</span></p>
+    <p class="user-email">Email: <span class="user-email">{{ email }}</span></p>
+    <p class="owners-title"></p>
+    <a class="logout-button" href="{% url 'users:logout' %}">Выйти из аккаунта</a>
+
+    <div class="purchased-plots">
+        <h2>Купленные участки</h2>
+        {% for order in orders %}
+            {% for item in order.orderitem_set.all %}
+                <div class="item" style="background-color: #EFECEC;">
+                    {% if item.plot.image %}
+                        <img src="{{ item.plot.image.url }}" alt="{{ item.plot.size }}" class="item-img">
+                    {% else %}
+                        <img src="{% static 'assets/default-plot.jpg' %}" alt="Участок" class="item-img">
+                    {% endif %}
+                    <div class="item-details">
+                        <p class="item-name">{{ item.plot.size }}</p>
+                        <p class="item-price">₽{{ item.plot.price }}</p>
+                        <a href="#" class="item-button">Скачать сертификат</a>
+                    </div>
                 </div>
-            </div>
-            <div class="item">
-                <img src="assets/plot10.jpg" alt="Участок 10 акров" class="item-img">
-                <div class="item-details">
-                    <p class="item-name">Участок в 10 акров</p>
-                    <p class="item-price">₽56000.00</p>
-                    <a href="#" class="item-button">Скачать сертификат</a>
-                </div>
-            </div>
-        </div>
+            {% endfor %}
+        {% endfor %}
     </div>
-{% endblock content %}
+</div>
+{% endblock %}
