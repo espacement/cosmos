@@ -27,6 +27,7 @@ def autho(request):
             user = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)
+                messages.success(request, f"{user.username}, Вы успешно вошли в аккаунт")
                 return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm()

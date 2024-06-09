@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static "style.css" %}">
     {% block head %}{% endblock  %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="{% static "script.js" %}" defer></script>
     <title>{{ title }}</title>
 </head>
@@ -30,9 +31,12 @@
                 {% if not user.is_authenticated %}
                     <a class="nav" href= "{% url "users:autho" %}">ВОЙТИ</a>
                 {% else %}
+                    {% if user.is_staff %}
+                        <a class="nav" href="{% url "admin:index" %}">АДМИНКА</a>
+                    {% endif %}
                     <a class="nav" href="{% url "users:profile" %}">ПРОФИЛЬ</a>
                 {% endif %}
-                <a class="nav" id="open-cart">КОРЗИНА <span id="cart-count" class="cart-count">0</span></a>
+                <a class="nav" href="{% url 'main:cart_detail' %}">КОРЗИНА</a>
             </div>
         </div>
     </header>
@@ -51,38 +55,15 @@
         <p>©CosmoGround 2024</p>
     </footer>
 
-    <!-- Корзина -->
-    <div id="cart-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2>Корзина</h2>
-            <div class="cart-details">
-                <div class="cart-items-container">
-                    <ul id="cart-items" class="cart-items"></ul>
-                    <div class="total-amount">
-                        <h3>Общая сумма: <span id="total-amount">₽0</span></h3>
-                    </div>
-                </div>
-                
-                <div class="order-form-container">
-                    <form id="order-form">
-                        <label for="cardholder">Имя держателя карты:</label>
-                        <input type="text" id="cardholder" name="cardholder" required>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
-                        <label for="cardnumber">Номер карты:</label>
-                        <input type="text" id="cardnumber" name="cardnumber" required pattern="\d{16}" title="Номер карты должен состоять из 16 цифр">
-                        
-                        <label for="expiry">Срок действия (MM/YY):</label>
-                        <input type="text" id="expiry" name="expiry" required pattern="\d{2}/\d{2}" title="Введите срок действия в формате MM/YY">
-                        
-                        <label for="cvc">CVC код:</label>
-                        <input type="text" id="cvc" name="cvc" required pattern="\d{3}" title="CVC код должен состоять из 3 цифр">
-                        
-                        <button type="submit">Оформить заказ</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                toastr.{{ message.tags }}('{{ message }}');
+            {% endfor %}
+        {% endif %}
+    </script>
 </body>
 </html>

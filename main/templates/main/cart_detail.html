@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class = "content">
+    <h2 class="owners-section">Корзина  <span class="user-email"> {{ username }}</span></p></h2>
+    <ul>
+        {% for item in cart.cartitem_set.all %}
+            <p class="item-name">{{ item.plot.size }} - {{ item.quantity }} шт. - ₽{{ item.plot.price }}</p>
+            <div class="strip"></div>
+            <p class="owners-title"></p>
+        {% endfor %}
+    </ul>
+    <p class="item-name">Общая сумма: ₽{{ cart.get_total_cost }}</p>
+    <p class="owners-title"></p>
+    <button type="submit">Оформить заказ</button>
+</div>
+{% endblock %}

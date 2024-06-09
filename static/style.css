@@ -194,6 +194,7 @@ main {
 }
 
 .item-name {
+    color:var(--a-color);
     font-size: 18px;
 }
 
@@ -436,6 +437,7 @@ button[type="submit"]:hover {
     width: 86%;
     margin: 50px auto;
     text-align: center;
+    color:var(--a-color) ;
 }
 
 .owners-title {
