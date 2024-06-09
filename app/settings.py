@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1)!z570c4g2la=a!$l&+c%zh-f2rb=^=&lga+ht4s4m9)y!xu_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    "debug_toolbar",
     
     'main',
     'users',
@@ -55,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'app.urls'

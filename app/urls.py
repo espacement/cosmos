@@ -27,12 +27,10 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),
     path('additions/', include('additions.urls', namespace='additions')),
     path('users/', include('users.urls', namespace='users')),
+    # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 ]
 
 if DEBUG:
-    urlpatterns += [
-        path("__debug__/", include("debug_toolbar.urls")),
-    ]
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
         
