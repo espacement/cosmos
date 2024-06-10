@@ -21,7 +21,7 @@ def faq(request):
     }
     return render(request, 'main/faq.html', context)
 
-
+@login_required
 def add_to_cart(request, plot_id):
     plot = get_object_or_404(plots, id=plot_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
