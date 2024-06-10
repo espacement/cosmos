@@ -10,7 +10,7 @@
     <a class="logout-button" href="{% url 'users:logout' %}">Выйти из аккаунта</a>
 
     <div class="purchased-plots">
-        <h2>Купленные участки</h2>
+        <h2>История покупок</h2>
         {% for order in orders %}
             {% for item in order.orderitem_set.all %}
                 <div class="item" style="background-color: #EFECEC;">
@@ -21,7 +21,8 @@
                     {% endif %}
                     <div class="item-details">
                         <p class="item-name">{{ item.plot.size }}</p>
-                        <p class="item-price">₽{{ item.plot.price }}</p>
+                        <p class="item-quantity">Количество: {{ item.quantity }}</p>
+                        <p class="item-price">₽{{ item.plot.price}}</p>
                         <a href="#" class="item-button">Скачать сертификат</a>
                     </div>
                 </div>
