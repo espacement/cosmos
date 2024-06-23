@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static "assets/favicon.png" %}" rel="shortcut icon" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found</title>
+    <style>
+        body {
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: MS Reference Sans Serif;
+            background-color: #EFECEC;
+            color: #C1440E;
+        }
+        .container {
+            text-align: center;
+        }
+        .icon {
+            font-size: 60px;
+            color: #C1440E;
+            margin: 0 10px;
+        }
+        .error-message {
+            font-size: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="error-message">4<span class="icon">🔴</span>4</h1>
+        <p>Страница не найдена!</p>
+    </div>
+</body>
+</html>

@@ -91,4 +91,4 @@ def checkout(request):
 @login_required
 def order_success(request):
     return render(request, 'main/order_success.html')
-    
+

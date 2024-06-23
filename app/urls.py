@@ -28,9 +28,10 @@ urlpatterns = [
     path('additions/', include('additions.urls', namespace='additions')),
     path('users/', include('users.urls', namespace='users')),
     # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    
 ]
 
 if DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
         
+handler404 = "app.views.page_not_found_view"
