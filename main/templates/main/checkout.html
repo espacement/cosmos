@@ -6,25 +6,29 @@
     
     <h2 class="item-name">Оформление заказа</h2>
     <p class="owners-title"></p>
-    <form method="POST">
-        {% csrf_token %}
-        <div>
-            <label for="id_cardholder_name">Имя держателя карты:</label>
-            {{ form.cardholder_name }}
+    <div class="auth-container"> 
+        <div id="login" class="tab-content active">
+            <form method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="id_cardholder_name">Имя держателя карты:</label>
+                    {{ form.cardholder_name }}
+                </div>
+                <div>
+                    <label for="id_card_number">Номер карты:</label>
+                    {{ form.card_number }}
+                </div>
+                <div>
+                    <label for="id_expiry_date">Срок действия (MM/YY):</label>
+                    {{ form.expiry_date }}
+                </div>
+                <div>
+                    <label for="id_cvc">CVC код(3 цифры на обороте карты):</label>
+                    {{ form.cvc }}
+                </div>
+                <button type="submit">Готово</button>
+            </form>
         </div>
-        <div>
-            <label for="id_card_number">Номер карты:</label>
-            {{ form.card_number }}
-        </div>
-        <div>
-            <label for="id_expiry_date">Срок действия (MM/YY):</label>
-            {{ form.expiry_date }}
-        </div>
-        <div>
-            <label for="id_cvc">CVC код(3 цифры на обороте карты):</label>
-            {{ form.cvc }}
-        </div>
-        <button type="submit">Готово</button>
-    </form>
+    </div>
 </div>
 {% endblock %}

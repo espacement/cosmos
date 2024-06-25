@@ -392,6 +392,15 @@ button[type="submit"]:hover {
     padding-bottom: 60px;
     background-image: url(assets/banner.png);
     background-repeat: no-repeat;
+    background-size: cover; /* Ensure the background image covers the whole area */
+    background-position: center; /* Center the background image */
+}
+
+@media screen and (min-width: 768px) {
+    .banner {
+        height: auto;
+        min-height: 200px; /* Ensures a minimum height for larger screens */
+    }
 }
 
 .banner-title {
