@@ -23,7 +23,7 @@
                         <p class="item-name">{{ item.plot.size }}</p>
                         <p class="item-quantity">Количество: {{ item.quantity }}</p>
                         <p class="item-price">₽{{ item.plot.price}}</p>
-                        <a href="#" class="item-button">Скачать сертификат</a>
+                        <a href="{% url 'main:generate_certificate' %}" class="item-button">Скачать сертификат</a>
                     </div>
                 </div>
             {% endfor %}
