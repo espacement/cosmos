@@ -26,10 +26,11 @@ SECRET_KEY = 'django-insecure-1)!z570c4g2la=a!$l&+c%zh-f2rb=^=&lga+ht4s4m9)y!xu_
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://espacement-cosmos-a387.twc1.net", "https://espacement-cosmos-b4a1.twc1.net"]
+CSRF_TRUSTED_ORIGINS = ["https://espacement-cosmos-a387.twc1.net", "https://espacement-cosmos-b4a1.twc1.net", "https://cosmos-production-27ec.up.railway.app",]
 CORS_ALLOWED_ORIGINS = [
     "https://espacement-cosmos-a387.twc1.net",
     "https://espacement-cosmos-b4a1.twc1.net",
+    "https://cosmos-production-27ec.up.railway.app",
 ]
 
 # Application definition
